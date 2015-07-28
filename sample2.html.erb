@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hogehoge</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <%= javascript_include_tag "//www.google.com/jsapi", "chartkick"%>
+
+    <meta charset="UTF-8">
+    <style>
+ #dragdropbox {
+  border : solid 1px black;
+  margin : 10px;
+  padding : 10px;
+  background-color : ;
+}
+</style>
+  </head>
+  <body>
+    <header>
+    </header>
+    <div class="contents">
+      <div class="firstcontents">
+      </div>
+      <div class="secondcontents" >
+      </div>
+    </div>
+
+
+
+<h3>HTML5のドラッグドロップのサンプル</h3>
+<div class='contents_box'>
+
+      
+      <div class='contents1'>
+      <% @graphs.each do |image| %>
+                    <div class='contents1_1' style="background-image:url(<%= image %>)"></div>
+      <% end %>
+        <div class='contents1_1' draggable="true" ondragstart="f1(event)">リンゴ</div>
+      <div class='contents1_1' draggable="true" ondragstart="f1(event)">バナナ</div>
+      <div class='contents1_1' draggable="true" ondragstart="f1(event)">みかん</div>
+      </div>
+
+      <!-- ドロップできる要素 -->
+      <div class='contents2'
+        ondragover="f2(event);"
+        ondrop="f3(event)">
+        フルーツバスケット<br>
+        （果物をドロップできます）
+        <div id="chart-1">
+        </div>
+      </div>
+</div>
+
+
+
+<script src="//www.google.com/jsapi"></script>
+<script src="chartkick.js"></script>
+<script>
+// ドラッグ開始時のイベント
+function f1( event )
+{
+  // ドラッグ要素の中身の文字列を取得
+  var s = event.target.innerHTML;
+  // ドラッグイベントに文字列を格納
+  event.dataTransfer.setData("text/plain", s);
+}
+// ドロップ受け付け判定
+function f2( event )
+{
+  // ドロップを受け付ける
+  // （イベントのデフォルト動作であるドロップの拒否を行なわない）
+  event.preventDefault();
+  // これが無いとドロップ不可能になる。
+}
+
+// ドロップ処理
+function f3(event)
+{
+  // ページの遷移を防止
+  //（これがないとドラッグ内容の文字列へブラウザが遷移する）
+  event.preventDefault();
+
+  // イベントに格納された文字列データを取り出し
+  var s = event.dataTransfer.getData("text/plain");
+  // @render;
+  //new Chartkick.LineChart("chart-1",{"2014-04-01": 60, "2014-04-02": 65, "2014-04-03": 64});
+  new Chartkick.LineChart("chart-1",{"2014-04-01": 60, "2014-04-02": 65, "2014-04-03": 64});
+  // line_chart[chart_data];
+   //表示
+   alert(s);
+}
+
+</script>
+
+<%= yield %>
+
+<!-- <div>
+<%= line_chart @chart_data %>
+</div> -->
+  </body>
+  <footer>
+
+    </footer>
+</html>
