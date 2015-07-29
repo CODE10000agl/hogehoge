@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hogehoge</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <%= javascript_include_tag "//www.google.com/jsapi", "chartkick"%>
+
+  </head>
+    <meta charset="utf-8">
+    <body>
+<title>HTML5・ドラッグ＆ドロップのサンプル１</title>
+<style>
+ #dragdropbox {
+  border : solid 1px black;
+  margin : 10px;
+  padding : 10px;
+  background-color : ;
+}
+</style>
+
+
+<h3>HTML5のドラッグドロップのサンプル１</h3>
+
+<!-- ドラッグできる要素 -->
+<div id="dragdropbox" draggable="true" ondragstart="f1(event)">リンゴ</div>
+<div id="dragdropbox" draggable="true" ondragstart="f1(event)">バナナ</div>
+<div id="dragdropbox" draggable="true" ondragstart="f1(event)">みかん</div>
+
+<!-- ドロップできる要素 -->
+<div
+  ondragover="f2(event);"
+  ondrop="f3(event)">
+  フルーツバスケット<br>
+  （果物をドロップできます）
+</div>
+
+
+<script>
+// ドラッグ開始時のイベント
+function f1( event )
+{
+  // ドラッグ要素の中身の文字列を取得
+  var s = event.target.innerHTML;
+  
+  // ドラッグイベントに文字列を格納
+  event.dataTransfer.setData("text/plain", s);
+}
+// ドロップ受け付け判定
+function f2( event )
+{
+  // ドロップを受け付ける
+  // （イベントのデフォルト動作であるドロップの拒否を行なわない）
+  event.preventDefault();
+  
+  // これが無いとドロップ不可能になる。
+}
+
+// ドロップ処理
+function f3(event)
+{
+  // ページの遷移を防止
+  //（これがないとドラッグ内容の文字列へブラウザが遷移する）
+  event.preventDefault();
+
+  // イベントに格納された文字列データを取り出し
+  var s = event.dataTransfer.getData("text/plain");
+  
+  // 表示
+  alert(s);
+}
+
+</script>
+
+    <div id="droppable" style="border: gray solid 1em; padding: 2em;">
+      ファイルをドロップしてください。
+    </div>
+
+<%= yield %>
+
+<div>
+<%= line_chart @chart_data %>
+</div>
+<div>
+  <li>TEST1</li>
+  <li>TEST2</li>
+  <li>TEST3</li>
+</div>
+
+</body>
+</html>
